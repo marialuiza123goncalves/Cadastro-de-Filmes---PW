@@ -44,7 +44,7 @@ export default function InsertPage() {
   return (
     <div className="container mx-auto p-4 flex justify-center items-center min-h-screen">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-lg w-full">
-        <h1 className="text-2xl font-bold mb-4 text-center bg-blue-600 text-white p-2">Inserir Novo Item</h1>
+        <h1 className="text-2xl font-bold mb-5 text-white text-center bg-blue-600 text-white p-2 rounded-lg">Inserir Novo Item</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-bold">Título:</label>

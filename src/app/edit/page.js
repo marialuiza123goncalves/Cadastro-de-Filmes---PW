@@ -9,18 +9,18 @@ export default function EditPage() {
   const [Datalancamento, setDatalancamento] = useState('');
   const [ano, setAno] = useState('');
   const [generoId, setGeneroId] = useState('');
-  const [diretor, setDiretor] = useState(''); 
+  const [diretor, setDiretor] = useState('');
   const [generos, setGeneros] = useState([]);
 
-    useEffect(() => {
-      const fetchGeneros = async () => {
+  useEffect(() => {
+    const fetchGeneros = async () => {
       const response = await fetch('../api/genero');
       const data = await response.json();
       setGeneros(data);
     };
-  
+
     fetchGeneros();
-    }, []);
+  }, []);
 
   useEffect(() => {
     const id = new URLSearchParams(window.location.search).get('id');
@@ -61,69 +61,74 @@ export default function EditPage() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Editar Filme</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-bold">Título:</label>
-          <input
-            type="text"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            className="border rounded p-2 w-full"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-bold">Data de Lançamento:</label>
-          <input
-            type="date"
-            value={Datalancamento}
-            onChange={(e) => setDatalancamento(e.target.value)}
-            className="border rounded p-2 w-full"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-bold">Ano:</label>
-          <input
-            type="number"
-            value={ano}
-            onChange={(e) => setAno(e.target.value)}
-            className="border rounded p-2 w-full"
-            required
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-bold">Gênero:</label>
-          <select
-            value={generoId}
-            onChange={(e) => setGeneroId(e.target.value)}
-            className="border rounded p-2 w-full"
-            required
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="bg-white p-8 shadow-lg rounded-lg max-w-lg w-full">
+        <h1 className="text-2xl font-bold mb-5 text-white text-center bg-blue-600 text-white p-2 rounded-lg">Editar Filme</h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm font-bold mb-1">Título:</label>
+            <input
+              type="text"
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
+              className="border rounded p-2 w-full"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-bold mb-1">Data de Lançamento:</label>
+            <input
+              type="date"
+              value={Datalancamento}
+              onChange={(e) => setDatalancamento(e.target.value)}
+              className="border rounded p-2 w-full"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-bold mb-1">Ano:</label>
+            <input
+              type="number"
+              value={ano}
+              onChange={(e) => setAno(e.target.value)}
+              className="border rounded p-2 w-full"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-bold mb-1">Gênero:</label>
+            <select
+              value={generoId}
+              onChange={(e) => setGeneroId(e.target.value)}
+              className="border rounded p-2 w-full"
+              required
+            >
+              <option value="" disabled>Selecione um Gênero</option>
+              {generos.map((genero) => (
+                <option key={genero.id} value={genero.id}>
+                  {genero.nome}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-bold mb-1">Diretor:</label>
+            <input
+              type="text"
+              value={diretor}
+              onChange={(e) => setDiretor(e.target.value)}
+              className="border rounded p-2 w-full"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-500"
           >
-            <option value="" disabled>Selecione um Gênero</option>
-            {generos.map((genero) => (
-              <option key={genero.id} value={genero.id}>
-                {genero.nome}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block text-sm font-bold">Diretor:</label>
-          <input
-            type="text"
-            value={diretor}
-            onChange={(e) => setDiretor(e.target.value)}
-            className="border rounded p-2 w-full"
-            required
-          />
-        </div>
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full">
-          Atualizar Filme
-        </button>
-      </form>
+            Atualizar Filme
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
