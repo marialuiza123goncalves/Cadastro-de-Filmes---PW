@@ -2,15 +2,82 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function GET() {
+export async function GET(req) {
+  const { searchParams } = new URL(req.url);
+  const id = searchParams.get('id');
+
+  if (id) {
+    const filme = await prisma.filmeslista.findUnique({
+      where: {
+        id: parseInt(id), // Converte o id para número
+      },
+    });
+    
+    if (!filme) {
+      return new Response(JSON.stringify({ error: 'Filme não encontrado' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return new Response(JSON.stringify(filme), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // Retorna todos os filmes se não houver ID
   const filmes = await prisma.filmeslista.findMany();
   return new Response(JSON.stringify(filmes), {
     status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
   });
 }
+
+export async function PUT(req) {
+  // Obtendo o ID da URL diretamente da requisição
+  const url = new URL(req.url);
+  const id = url.searchParams.get('id'); // Obtendo o ID da query string
+
+  const { titulo, Datalancamento, ano, generoId, diretor } = await req.json(); // Obtendo os dados do corpo da requisição
+
+  if (!id) {
+    return new Response(JSON.stringify({ error: 'ID é necessário' }), {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  try {
+    const updatedFilme = await prisma.filmeslista.update({
+      where: { id: parseInt(id) }, // Convertendo id para número
+      data: {
+        titulo,
+        Datalancamento: new Date(Datalancamento), // Convertendo para objeto Date
+        ano: parseInt(ano), // Convertendo ano para inteiro
+        generoId: parseInt(generoId), // Convertendo generoId para inteiro, se necessário
+        diretor,
+      },
+    });
+    return new Response(JSON.stringify({ message: "Filme atualizado", updatedFilme }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    console.error('Erro ao atualizar filme:', error);
+    return new Response(JSON.stringify({ message: "Erro ao atualizar filme" }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}
+
 
 export async function POST(request) {
   const {  titulo, Datalancamento, ano, generoId, diretor } = await request.json();
@@ -59,12 +126,6 @@ export async function DELETE(req) {
       status: 204,
     });
   } catch (error) {
-    console.error('Erro ao deletar filme:', error);
-    return new Response(JSON.stringify({ message: "Erro ao deletar filme" }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
+  
+}
 }
