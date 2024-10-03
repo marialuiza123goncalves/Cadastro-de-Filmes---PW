@@ -8,22 +8,16 @@ export default function ItemsPage() {
   const [generos, setGeneros] = useState([]);
   const router = useRouter();
 
-  // Função para formatar a data
   const formatarData = (data) => {
-    if (!data) return 'Data inválida'; // Verifica se a data existe
-
-    const dateObj = new Date(data);
-
-    if (isNaN(dateObj)) return 'Data inválida'; // Verifica se a data é válida
-
-    const dia = String(dateObj.getDate()).padStart(2, '0');
-    const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
-    const ano = dateObj.getFullYear();
-
-    return `${dia}/${mes}/${ano}`;
+    const dateTime = new Date(data);
+    const formattedDate = dateTime.toLocaleDateString('pt-BR', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const formattedTime = dateTime.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const fullDateTimeString = `${formattedDate}`;
+    return (fullDateTimeString); 
+    
   };
 
-  // Fetch dos filmes e gêneros
+  // filmes e gêneros
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,7 +29,6 @@ export default function ItemsPage() {
         const filmesData = await filmesResponse.json();
         const generosData = await generosResponse.json();
 
-        // Ordena os filmes pelo ID de forma crescente
         filmesData.sort((a, b) => a.id - b.id);
 
         setFilmes(filmesData);
@@ -96,7 +89,7 @@ export default function ItemsPage() {
                   <td className="border border-gray-300 p-3 text-center">{filmeslista.id}</td>
                   <td className="border border-gray-300 p-3">{filmeslista.titulo}</td>
                   <td className="border border-gray-300 p-3 text-center">{filmeslista.ano}</td>
-                  <td className="border border-gray-300 p-3 text-center">{formatarData(filmeslista.datalancamento)}</td>
+                  <td className="border border-gray-300 p-3 text-center">{formatarData(filmeslista.Datalancamento)}</td>
                   <td className="border border-gray-300 p-3">{filmeslista.diretor}</td>
                   <td className="border border-gray-300 p-3 text-center">{genero?.nome}</td>
                   <td className="border border-gray-300 p-3 text-center">
