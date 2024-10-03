@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation'; // Importa o useRouter
 
 export default function ListaGeneros() {
   const [Generos, setGeneros] = useState([]);
+  const router = useRouter(); // Inicializa o useRouter para navegação
 
   useEffect(() => {
     const fetchGeneros = async () => {
@@ -15,15 +17,26 @@ export default function ListaGeneros() {
     fetchGeneros();
   }, []);
 
+  const handleAddNewGenre = () => {
+    router.push('/Genero/insert');
+  };
+
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Lista de Itens</h1>
+      <h1 className="text-2xl font-bold mb-4">Lista de Gêneros</h1>
+
+      <button
+        onClick={handleAddNewGenre}
+        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+      >
+        Adicionar Novo Gênero
+      </button>
+
       <table className="min-w-full border-collapse border border-gray-200">
         <thead>
           <tr>
             <th className="border border-gray-300 p-2">ID</th>
             <th className="border border-gray-300 p-2">Nome</th>
-            <th className="border border-gray-300 p-2">Preço</th>
           </tr>
         </thead>
         <tbody>

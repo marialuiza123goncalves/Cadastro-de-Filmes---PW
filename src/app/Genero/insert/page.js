@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 
-export default function InsertPage() {
+export default function InsertGenero() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -9,7 +9,7 @@ export default function InsertPage() {
     const formData = new FormData(e.target);
     const nome = formData.get('nome');
 
-    const response = await fetch('/api/generos', {
+    const response = await fetch('/api/genero', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export default function InsertPage() {
           <label className="block text-sm font-bold">Título:</label>
           <input
             type="text"
-            name="titulo"
+            name="nome"
             className="border rounded p-2 w-full"
             required
           />
