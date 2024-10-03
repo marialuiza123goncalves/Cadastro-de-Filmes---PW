@@ -25,7 +25,7 @@ export default function InsertGenero() {
     // Verifica se o gênero já existe
     if (generos.some((genero) => genero.nome.toLowerCase() === nome.toLowerCase())) {
       setErrorMessage('Já existe um gênero com esse nome.');
-      return; // Para se evitar a execução do código a seguir
+      return;
     }
 
     const response = await fetch('/api/genero', {
@@ -46,23 +46,32 @@ export default function InsertGenero() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Inserir Gênero</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-bold">Nome:</label>
-          <input
-            type="text"
-            name="nome"
-            className="border rounded p-2 w-full"
-            required
-          />
-        </div>
-        {errorMessage && <div className="text-red-500">{errorMessage}</div>}
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full">
-          Adicionar Item
-        </button>
-      </form>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="bg-white p-6 shadow-lg rounded-lg max-w-lg w-full">
+        <h1 className="text-2xl font-bold mb-6 text-center">Inserir Gênero</h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm font-bold mb-2">Nome:</label>
+            <input
+              type="text"
+              name="nome"
+              className="border rounded-lg p-2 w-full"
+              required
+            />
+          </div>
+          {errorMessage && (
+            <div className="text-red-500 text-sm text-center">
+              {errorMessage}
+            </div>
+          )}
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-500"
+          >
+            Adicionar Gênero
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

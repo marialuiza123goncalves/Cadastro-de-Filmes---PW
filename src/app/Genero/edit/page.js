@@ -43,36 +43,45 @@ export default function EditarGenero() {
         body: JSON.stringify({ nome }),
       });
 
-      const data = await response.json();
-
-      router.push('/Genero'); 
+      if (response.ok) {
+        router.push('/Genero'); 
+      } else {
+        throw new Error('Erro ao atualizar o gênero');
+      }
     } catch (error) {
       setMessage(error.message);
     }
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Editar Gênero</h1>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="bg-white p-6 shadow-lg rounded-lg max-w-lg w-full">
+        <h1 className="text-2xl font-bold mb-6 text-center">Editar Gênero</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-bold">Nome do Gênero:</label>
-          <input
-            type="text"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            className="border rounded p-2 w-full"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Atualizar Gênero
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm font-bold mb-2">Nome do Gênero:</label>
+            <input
+              type="text"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              className="border rounded-lg p-2 w-full"
+              required
+            />
+          </div>
+          {message && (
+            <div className="text-red-500 text-sm text-center">
+              {message}
+            </div>
+          )}
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg w-full hover:bg-blue-500"
+          >
+            Atualizar Gênero
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
