@@ -89,10 +89,22 @@ export default function EditPage() {
             <label className="block text-sm font-bold mb-1">Ano:</label>
             <input
               type="number"
+              min="0"
+              max="2030"
               value={ano}
               onChange={(e) => setAno(e.target.value)}
               className="border rounded p-2 w-full"
               required
+              onInput={(e) => {
+                const value = parseInt(e.target.value, 10);
+                if (value < 0 || value > 2030) {
+                  e.target.setCustomValidity("Por favor, insira um ano entre 0000 e 2030.");
+                } else if (!/^\d{4}$/.test(e.target.value) && e.target.value !== '') {
+                  e.target.setCustomValidity("Por favor, insira exatamente 4 dígitos.");
+                } else {
+                  e.target.setCustomValidity(""); // Limpa a mensagem de erro se válido
+                }
+              }}
             />
           </div>
           <div>
