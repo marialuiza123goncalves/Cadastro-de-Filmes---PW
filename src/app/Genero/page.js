@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Importa o useRouter
+import { useRouter } from 'next/navigation';
 
 export default function ListaGeneros() {
   const [Generos, setGeneros] = useState([]);
-  const router = useRouter(); // Inicializa o useRouter para navegação
+  const router = useRouter(); 
 
   useEffect(() => {
     const fetchGeneros = async () => {
@@ -22,7 +22,7 @@ export default function ListaGeneros() {
   };
 
   const handleGoHome = () => {
-    router.push('/'); // Navega para a tela inicial
+    router.push('/'); 
   };
 
   return (

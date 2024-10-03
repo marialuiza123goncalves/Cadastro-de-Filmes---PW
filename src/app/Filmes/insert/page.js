@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 
-export default function InsertPage() {
+export default function InsertFilme() {
   const [selectedOption, setSelectedOption] = useState('');
   const [generos, setGeneros] = useState([]);
 

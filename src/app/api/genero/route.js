@@ -9,7 +9,7 @@ export async function GET(req) {
   if (id) {
     const GeneroFilmeID = await prisma.genero.findUnique({
       where: {
-        id: parseInt(id), // Converte o id para número
+        id: parseInt(id), 
       },
     });
 
@@ -36,7 +36,7 @@ export async function PUT(req) {
 
   try {
     const updatedGenero = await prisma.genero.update({
-      where: { id: parseInt(id) }, // Convertendo id para número
+      where: { id: parseInt(id) },
       data: {
         nome,
       },

@@ -1,17 +1,16 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation'; // Importa o useRouter e useSearchParams
+import { useRouter, useSearchParams } from 'next/navigation'; 
 
 export default function EditarGenero() {
   const [nome, setNome] = useState('');
   const [message, setMessage] = useState('');
   const router = useRouter();
   const searchParams = useSearchParams();
-  const id = searchParams.get('id'); // Obtém o ID dos parâmetros da URL
+  const id = searchParams.get('id'); 
 
   useEffect(() => {
-    // Função para buscar os dados do gênero pelo ID
     const fetchGenero = async () => {
       try {
         const response = await fetch(`/api/genero/?id=${id}`);
@@ -19,18 +18,17 @@ export default function EditarGenero() {
           throw new Error('Erro ao buscar dados do gênero');
         }
         const data = await response.json();
-        setNome(data.nome); // Preenche o nome do gênero no formulário
+        setNome(data.nome); 
       } catch (error) {
         setMessage(error.message);
       }
     };
 
     if (id) {
-      fetchGenero(); // Busca os dados do gênero quando o ID está disponível
+      fetchGenero(); 
     }
   }, [id]);
 
-  // Função para lidar com o envio do formulário e atualização do gênero
   const handleSubmit = async (e) => {
     e.preventDefault();
 

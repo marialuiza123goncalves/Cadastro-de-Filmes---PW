@@ -28,12 +28,9 @@ export async function GET(req) {
 }
 
 export async function PUT(req) {
-  // Obtendo o ID da URL diretamente da requisição
   const url = new URL(req.url);
-  const id = url.searchParams.get('id'); // Obtendo o ID da query string
-
-  const { titulo, Datalancamento, ano, generoId, diretor } = await req.json(); // Obtendo os dados do corpo da requisição
-
+  const id = url.searchParams.get('id'); 
+  const { titulo, Datalancamento, ano, generoId, diretor } = await req.json(); 
   if (!id) {
     return new Response(JSON.stringify({ error: 'ID é necessário' }), {
       status: 400,
@@ -45,12 +42,12 @@ export async function PUT(req) {
 
   try {
     const updatedFilme = await prisma.filmeslista.update({
-      where: { id: parseInt(id) }, // Convertendo id para número
+      where: { id: parseInt(id) }, 
       data: {
         titulo,
-        Datalancamento: new Date(Datalancamento), // Convertendo para objeto Date
-        ano: parseInt(ano), // Convertendo ano para inteiro
-        generoId: parseInt(generoId), // Convertendo generoId para inteiro, se necessário
+        Datalancamento: new Date(Datalancamento), 
+        ano: parseInt(ano),
+        generoId: parseInt(generoId),
         diretor,
       },
     });
@@ -93,11 +90,8 @@ export async function POST(request) {
 }
 
 export async function DELETE(req) {
-  // Extraindo o ID da query string
   const { searchParams } = new URL(req.url);
-  const id = searchParams.get('id'); // Obtém o ID da query string
-
-  // Verifica se o ID foi fornecido
+  const id = searchParams.get('id'); 
   if (!id) {
     return new Response(JSON.stringify({ error: 'ID é necessário' }), {
       status: 400,
@@ -106,14 +100,10 @@ export async function DELETE(req) {
       },
     });
   }
-
   try {
-    // Deleta o filme usando o ID
     await prisma.filmeslista.delete({
-      where: { id: parseInt(id) }, // Converte o ID para inteiro
+      where: { id: parseInt(id) }, 
     });
-
-    // Retorna uma resposta 204 No Content
     return new Response(null, {
       status: 204,
     });

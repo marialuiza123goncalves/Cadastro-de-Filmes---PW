@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function EditPage() {
+export default function EditFilme() {
   const router = useRouter();
   const [titulo, setTitulo] = useState('');
   const [Datalancamento, setDatalancamento] = useState('');
@@ -102,7 +102,7 @@ export default function EditPage() {
                 } else if (!/^\d{4}$/.test(e.target.value) && e.target.value !== '') {
                   e.target.setCustomValidity("Por favor, insira exatamente 4 dígitos.");
                 } else {
-                  e.target.setCustomValidity(""); // Limpa a mensagem de erro se válido
+                  e.target.setCustomValidity(""); 
                 }
               }}
             />
