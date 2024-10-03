@@ -1,19 +1,47 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function ItemsPage() {
-  const [filmes, setItems] = useState([]);
+  const [filmes, setFilmes] = useState([]);
+  const [message, setMessage] = useState('');
+  const router = useRouter();
 
+  // obter os filmes
   useEffect(() => {
     const fetchItems = async () => {
       const response = await fetch('/api/items');
       const data = await response.json();
-      setItems(data);
+      setFilmes(data);
     };
 
     fetchItems();
   }, []);
+
+  // Fdeletar um filme
+  const handleDelete = async (e, id) => {
+    try {
+      const response = await fetch(`/api/items/?id=${id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Erro ao deletar filme');
+      }
+
+      router.refresh();
+    } catch (error) {
+  
+    }
+  };
+
+  // redirecionar para a página de edição
+  const handleEdit = (id) => {
+    router.push(`Filmes/edit/?id=${id}`);
+  };
 
   return (
     <div className="container mx-auto p-6 flex justify-center">
@@ -40,12 +68,20 @@ export default function ItemsPage() {
                 <td className="border border-gray-300 p-3">{filmeslista.diretor}</td>
                 <td className="border border-gray-300 p-3 text-center">{filmeslista.genero}</td>
                 <td className="border border-gray-300 p-3 text-center">
-                  <button className="bg-yellow-500 text-white hover:bg-yellow-600 py-1 px-4 rounded-lg mr-2 transition-colors">
+                  <button
+                    onClick={() => handleEdit(filmeslista.id)}
+                    className="bg-yellow-500 text-white hover:bg-yellow-600 py-1 px-4 rounded-lg mr-2 transition-colors"
+                  >
                     Editar
                   </button>
-                  <button className="bg-red-500 text-white hover:bg-red-600 py-1 px-4 rounded-lg transition-colors">
-                    Excluir
-                  </button>
+                  <form onSubmit={(e) => handleDelete(e, filmeslista.id)} className="inline-block">
+                    <button
+                      type="submit"
+                      className="bg-red-500 text-white hover:bg-red-600 py-1 px-4 rounded-lg transition-colors"
+                    >
+                      Excluir
+                    </button>
+                  </form>
                 </td>
               </tr>
             ))}

@@ -9,16 +9,9 @@ export async function GET(req) {
   if (id) {
     const filme = await prisma.filmeslista.findUnique({
       where: {
-        id: parseInt(id), // Converte o id para número
+        id: parseInt(id),
       },
     });
-    
-    if (!filme) {
-      return new Response(JSON.stringify({ error: 'Filme não encontrado' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
 
     return new Response(JSON.stringify(filme), {
       status: 200,
@@ -77,7 +70,6 @@ export async function PUT(req) {
     });
   }
 }
-
 
 export async function POST(request) {
   const {  titulo, Datalancamento, ano, generoId, diretor } = await request.json();

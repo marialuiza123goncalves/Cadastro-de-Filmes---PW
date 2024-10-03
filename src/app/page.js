@@ -4,9 +4,21 @@ import Link from 'next/link';
 export function LinkInsert() {
   return (
     <div className="container mx-auto mt-6 flex justify-center">
-      <Link href="/insert">
+      <Link href="Filmes/insert">
         <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-colors shadow-md">
           Adicionar Filme
+        </button>
+      </Link>
+    </div>
+  );
+}
+
+export function LinkGenero() {
+  return (
+    <div className="container mx-auto mt-6 flex justify-center">
+      <Link href="/Genero">
+        <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-colors shadow-md">
+          Genero
         </button>
       </Link>
     </div>
@@ -23,6 +35,7 @@ export default function Home() {
       <main className="flex-grow py-8">
         <ItemsPage /> {/* Página de filmes */}
         <LinkInsert /> {/* Link estilizado para a página de inserção */}
+        <LinkGenero /> 
       </main>
 
       <footer className="bg-gray-100 text-center text-gray-600 py-4 mt-6">
