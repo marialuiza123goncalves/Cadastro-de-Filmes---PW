@@ -33,14 +33,10 @@ export default function Home() {
       </header>
 
       <main className="flex-grow py-8">
-        <LinkInsert /> {/* Link estilizado para a página de inserção */}
+        <LinkInsert /> 
         <LinkGenero /> 
-        <ItemsPage /> {/* Página de filmes */}
+        <ItemsPage /> 
       </main>
-
-      <footer className="bg-gray-100 text-center text-gray-600 py-4 mt-6">
-        &copy; 2024 - Gerenciador de Filmes
-      </footer>
     </div>
   );
 }

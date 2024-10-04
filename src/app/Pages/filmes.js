@@ -17,7 +17,6 @@ export default function ItemsPage() {
     
   };
 
-  // filmes e gêneros
   useEffect(() => {
     const fetchData = async () => {
       try {

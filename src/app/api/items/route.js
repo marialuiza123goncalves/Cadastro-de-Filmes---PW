@@ -19,7 +19,6 @@ export async function GET(req) {
     });
   }
 
-  // Retorna todos os filmes se não houver ID
   const filmes = await prisma.filmeslista.findMany();
   return new Response(JSON.stringify(filmes), {
     status: 200,

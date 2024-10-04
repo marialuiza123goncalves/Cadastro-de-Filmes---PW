@@ -82,7 +82,7 @@ export default function InsertFilme() {
                 } else if (!/^\d{4}$/.test(e.target.value) && e.target.value !== '') {
                   e.target.setCustomValidity("Por favor, insira exatamente 4 dígitos.");
                 } else {
-                  e.target.setCustomValidity(""); // Limpa a mensagem de erro se válido
+                  e.target.setCustomValidity(""); 
                 }
               }}
             />

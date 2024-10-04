@@ -11,7 +11,6 @@ export default function ListaGeneros() {
     const fetchGeneros = async () => {
       const response = await fetch('/api/genero');
       const data = await response.json();
-      // Ordena os gêneros pelo ID
       const sortedGeneros = data.sort((a, b) => a.id - b.id);
       setGeneros(sortedGeneros);
     };

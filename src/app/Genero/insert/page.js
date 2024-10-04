@@ -2,11 +2,10 @@
 import { useState, useEffect } from 'react';
 
 export default function InsertGenero() {
-  const [generos, setGeneros] = useState([]); // Para armazenar os gêneros existentes
-  const [errorMessage, setErrorMessage] = useState(''); // Para armazenar mensagens de erro
+  const [generos, setGeneros] = useState([]); 
+  const [errorMessage, setErrorMessage] = useState(''); 
 
   useEffect(() => {
-    // Função para buscar os gêneros existentes
     const fetchGeneros = async () => {
       const response = await fetch('/api/genero');
       const data = await response.json();
@@ -22,7 +21,6 @@ export default function InsertGenero() {
     const formData = new FormData(e.target);
     const nome = formData.get('nome');
 
-    // Verifica se o gênero já existe
     if (generos.some((genero) => genero.nome.toLowerCase() === nome.toLowerCase())) {
       setErrorMessage('Já existe um gênero com esse nome.');
       return;
@@ -38,7 +36,7 @@ export default function InsertGenero() {
 
     if (response.ok) {
       e.target.reset();
-      setErrorMessage(''); // Limpa a mensagem de erro
+      setErrorMessage(''); 
       window.location.href = 'http://localhost:3000/Genero/'; 
     } else {
       console.error('Erro ao adicionar item');
